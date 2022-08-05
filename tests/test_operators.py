@@ -103,6 +103,9 @@ def test_sigmoid(a):
     * one minus sigmoid is the same as negative sigmoid
     * It crosses 0 at 0.5
     * it is  strictly increasing.
+
+    Args:
+        a (float): A random float.
     """
     assert sigmoid(a) >= 0.0 and sigmoid(a) <= 1.0
     # assert sigmoid(a) - (1.0 - sigmoid(-a)) < 1e-5 and sigmoid(a) - (1.0 - sigmoid(-a)) > -1e-5
@@ -172,6 +175,10 @@ def test_sum_distribute(ls1, ls2):
     """
     Write a test that ensures that the sum of `ls1` plus the sum of `ls2`
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
+
+    Args:
+        ls1 (list[float]): A list of random floats.
+        ls2 (list[float]): A list of random floats.
     """
     new_ls1 = []
     for x, y in zip(ls1, ls2):
