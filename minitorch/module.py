@@ -17,16 +17,19 @@ class Module:
 
     def modules(self):
         "Return the direct child modules of this module."
-        return self.__dict__["_modules"].values()
+        return self.__dict__["_modules"]
 
     def train(self):
         "Set the mode of this module and all descendent modules to `train`."
         self.training = True
-
+        for module in self.modules().values():
+            module.train()
 
     def eval(self):
         "Set the mode of this module and all descendent modules to `eval`."
         self.training = False
+        for module in self.modules().values():
+            module.eval()
 
     def named_parameters(self):
         """
@@ -36,21 +39,29 @@ class Module:
         Returns:
             list of pairs: Contains the name and :class:`Parameter` of each ancestor parameter.
         """
-        ls=[]
-        for name, param in self._parameters.items():
-            ls.append((name, param))
+        # ls=dict()
+        ls = []
 
+        for key, param in self.__dict__["_parameters"].items():
+            print((key, param))
+
+            ls.append((key, param))
+
+        for key, module in self.modules().items():
+            for name, param in module.named_parameters():
+                ls.append((str(key) + "." + name, param))
 
         return ls
 
-
-
-
     def parameters(self):
         "Enumerate over all the parameters of this module and its descendents."
+        ls = []
         for name, param in self.named_parameters():
-            yield param
+            # print(name, param)
+            ls.append(param)
+        # print(ls)
 
+        return ls
 
     def add_parameter(self, k, v):
         """

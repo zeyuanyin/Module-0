@@ -12,7 +12,7 @@ import math
 
 def mul(x, y):
     ":math:`f(x, y) = x * y`"
-    return x*y
+    return x * y
 
 
 def id(x):
@@ -29,9 +29,10 @@ def neg(x):
     ":math:`f(x) = -x`"
     return -x
 
+
 def lt(x, y):
     ":math:`f(x) =` 1.0 if x is less than y else 0.0"
-    if x<=y:
+    if x <= y:
         return 1.0
     else:
         return 0.0
@@ -47,14 +48,16 @@ def eq(x, y):
 
 def max(x, y):
     ":math:`f(x) =` x if x is greater than y else y"
-    if x>y:
+    if x > y:
         return x
     else:
         return y
 
+
 def is_close(x, y):
     ":math:`f(x) = |x - y| < 1e-2` "
-    return abs(x-y)< 1e-2
+    return abs(x - y) < 1e-2
+
 
 def sigmoid(x):
     r"""
@@ -75,11 +78,12 @@ def sigmoid(x):
         float : sigmoid value
     """
 
-    if x>=0:
-        return 1/(1+exp(-x))
+    if x >= 0:
+        return 1 / (1 + exp(-x))
 
     else:
-        return exp(x)/(1+exp(x))
+        return exp(x) / (1 + exp(x))
+
 
 def relu(x):
     """
@@ -93,11 +97,12 @@ def relu(x):
     Returns:
         float : relu value
     """
-    if x>0:
+    if x > 0:
         return x
 
     else:
         return 0.0
+
 
 EPS = 1e-6
 
@@ -114,24 +119,28 @@ def exp(x):
 
 def log_back(x, d):
     r"If :math:`f = log` as above, compute d :math:`d \times f'(x)`"
-    return d*1/(x+EPS)
+    return d * 1 / (x + EPS)
+
 
 def inv(x):
     ":math:`f(x) = 1/x`"
-    return 1/(x+EPS)
+    return 1 / (x + EPS)
+
 
 def inv_back(x, d):
     r"If :math:`f(x) = 1/x` compute d :math:`d \times f'(x)`"
-    return d* (-1)/(x+EPS)^2
+    return d * (-1) / (x + EPS) ^ 2
+
 
 def relu_back(x, d):
     r"If :math:`f = relu` compute d :math:`d \times f'(x)`"
 
-    if x>=0:
+    if x >= 0:
         return d
 
     else:
         return 0.0
+
 
 # ## Task 0.3
 
@@ -156,14 +165,13 @@ def map(fn):
     """
 
     def apply(list):
-        new_list=[]
+        new_list = []
         for element in list:
             new_list.append(fn(element))
 
         return new_list
 
     return apply
-
 
 
 def negList(ls):
@@ -188,17 +196,19 @@ def zipWith(fn):
 
     """
 
-    def apply(list_1,list_2):
-        new_list=[]
-        for x,y in zip(list_1,list_2):
-            new_list.append(fn(x,y))
+    def apply(list_1, list_2):
+        new_list = []
+        for x, y in zip(list_1, list_2):
+            new_list.append(fn(x, y))
         return new_list
 
     return apply
 
+
 def addLists(ls1, ls2):
     "Add the elements of `ls1` and `ls2` using :func:`zipWith` and :func:`add`"
-    return zipWith(add)(ls1,ls2)
+    return zipWith(add)(ls1, ls2)
+
 
 def reduce(fn, start):
     r"""
@@ -218,11 +228,11 @@ def reduce(fn, start):
     """
 
     def apply(ls):
-        if len(ls)==0:
+        if len(ls) == 0:
             return start
-        res=fn(start,ls[0])
+        res = fn(start, ls[0])
         for element in ls[1:]:
-            res=fn(res,element)
+            res = fn(res, element)
         return res
 
     return apply
@@ -230,9 +240,9 @@ def reduce(fn, start):
 
 def sum(ls):
     "Sum up a list using :func:`reduce` and :func:`add`."
-    return reduce(add,0.0)(ls)
+    return reduce(add, 0.0)(ls)
 
 
 def prod(ls):
     "Product of a list using :func:`reduce` and :func:`mul`."
-    return reduce(mul,1.0)(ls)
+    return reduce(mul, 1.0)(ls)

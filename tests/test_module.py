@@ -1,7 +1,9 @@
 import minitorch
 import pytest
 from hypothesis import given
-from .strategies import med_ints, small_floats
+
+# from .strategies import med_ints, small_floats
+from tests.strategies import med_ints, small_floats
 
 # # Tests for module.py
 
@@ -182,7 +184,15 @@ def test_parameter():
     assert t2.x
 
 
-if __name__=="__main__":
+# python -m tests.test_module
+if __name__ == "__main__":
     print("Running tests")
     # pytest.main(["-s", "test_module.py"])
-    print("Done")
+
+    module = Module2()
+    module.eval()
+    assert not module.training
+    module.train()
+    assert module.training
+    print(module.parameters())
+    # assert len(module.parameters()) == 3
