@@ -180,3 +180,9 @@ def test_parameter():
     t2 = MockParam()
     q.update(t2)
     assert t2.x
+
+
+if __name__=="__main__":
+    print("Running tests")
+    # pytest.main(["-s", "test_module.py"])
+    print("Done")

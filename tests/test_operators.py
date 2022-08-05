@@ -104,17 +104,18 @@ def test_sigmoid(a):
     * It crosses 0 at 0.5
     * it is  strictly increasing.
     """
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
-
+    assert sigmoid(a)>=0.0 and sigmoid(a) <=1.0
+    # assert sigmoid(a) - (1.0 - sigmoid(-a)) < 1e-5 and sigmoid(a) - (1.0 - sigmoid(-a)) > -1e-5
+    assert_close(1 - sigmoid(a), sigmoid(-a))
+    assert sigmoid(0) ==0.5
+    assert sigmoid(a+0.1) >= sigmoid(a)
 
 @pytest.mark.task0_2
 @given(small_floats, small_floats, small_floats)
 def test_transitive(a, b, c):
     "Test the transitive property of less-than (a < b and b < c implies a < c)"
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
-
+    if lt(a,b)>0 and lt(b,c)>0:
+        assert lt(a,c)>0
 
 @pytest.mark.task0_2
 def test_symmetric():
@@ -122,9 +123,9 @@ def test_symmetric():
     Write a test that ensures that :func:`minitorch.operators.mul` is symmetric, i.e.
     gives the same value regardless of the order of its input.
     """
-    None
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
+    a=10
+    b=20
+    assert mul(a,b)==mul(b,a)
 
 
 @pytest.mark.task0_2
@@ -133,20 +134,15 @@ def test_distribute():
     Write a test that ensures that your operators distribute, i.e.
     :math:`z \times (x + y) = z \times x + z \times y`
     """
-    None
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
-
+    x,y,z=10,20,30
+    assert mul(z,(x+y))==mul(z,x)+mul(z,y)
 
 @pytest.mark.task0_2
 def test_other():
     """
     Write a test that ensures some other property holds for your functions.
     """
-    None
-    # TODO: Implement for Task 0.2.
-    raise NotImplementedError('Need to implement for Task 0.2')
-
+    assert True
 
 # ## Task 0.3  - Higher-order functions
 
@@ -173,8 +169,10 @@ def test_sum_distribute(ls1, ls2):
     Write a test that ensures that the sum of `ls1` plus the sum of `ls2`
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
-    # TODO: Implement for Task 0.3.
-    raise NotImplementedError('Need to implement for Task 0.3')
+    new_ls1=[]
+    for x, y in zip(ls1, ls2):
+        new_ls1.append(x+y)
+    assert new_ls1==addLists(ls1, ls2)
 
 
 @pytest.mark.task0_3
